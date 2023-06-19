@@ -1,5 +1,4 @@
 import flet as ft
-import asyncio as io
 import pages
 
 
@@ -7,7 +6,7 @@ class Main(object):
     def __init__(self):
         self.page: ft.Page | None = None
 
-    async def run(self, page):
+    def run(self, page):
         self.page = page
         self.page.title = "Flet Material 3 Demo"
         self.page.scroll = ft.ScrollMode.AUTO
@@ -24,10 +23,9 @@ class Main(object):
                 ft.IconButton(ft.icons.IMAGE_OUTLINED)
             ]
         )
-        await self.page.update_async()
 
         self.page.views.append(pages.WidgetsPage())
-        await self.page.go_async('/WidgetsPage')
+        self.page.go('/WidgetsPage')
 
 # def main(page: ft.Page):
 #     page.title = "Flet Material 3 Demo"
@@ -61,4 +59,4 @@ class Main(object):
 
 
 if __name__ == '__main__':
-    io.run(ft.app_async(target=Main().run))
+    ft.app(target=Main().run)
