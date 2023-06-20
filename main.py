@@ -1,5 +1,5 @@
 import flet as ft
-from utilities import actions_section
+from utilities import *
 
 
 class Main(object):
@@ -25,7 +25,12 @@ class Main(object):
         )
 
         self.page.add(
-            actions_section
+            actions_section,
+            communication_section,
+            containment_section,
+            navigation_section,
+            selection_section,
+            text_inputs_section
         )
 
     def handle_brightness_change(self, e):
