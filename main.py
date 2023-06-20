@@ -17,8 +17,8 @@ class Main(object):
         self.page.appbar = ft.AppBar(
             title=ft.Text("Material 3"),
             actions=[
-                ft.IconButton(ft.icons.SHIELD_MOON),
-                ft.IconButton(ft.icons.LOOKS_TWO_OUTLINED),
+                ft.IconButton(ft.icons.SHIELD_MOON, on_click=self.handle_brightness_change),
+                ft.IconButton(ft.icons.LOOKS_TWO_OUTLINED, on_click=self.handle_material_version_change, tooltip="Use Material 2"),
                 ft.IconButton(ft.icons.FORMAT_PAINT_ROUNDED),
                 ft.IconButton(ft.icons.IMAGE_OUTLINED)
             ]
@@ -28,35 +28,14 @@ class Main(object):
             actions_section
         )
 
-# def main(page: ft.Page):
-#     page.title = "Flet Material 3 Demo"
-#     page.scroll = ft.ScrollMode.AUTO
-#     page.theme_mode = ft.ThemeMode.LIGHT
-#     # page.window_always_on_top = True
-#     page.horizontal_alignment = page.vertical_alignment = "center"
-#     page.theme = page.dark_theme = ft.Theme(use_material3=True)
-#
-#     page.appbar = ft.AppBar(
-#         title=ft.Text("Material 3"),
-#         actions=[
-#             ft.IconButton(ft.icons.SHIELD_MOON),
-#             ft.IconButton(ft.icons.LOOKS_TWO_OUTLINED),
-#             ft.IconButton(ft.icons.FORMAT_PAINT_ROUNDED),
-#             ft.IconButton(ft.icons.IMAGE_OUTLINED)
-#         ]
-#     )
-#
-#     page.add(
-#         utils.common_buttons,
-#         utils.floating_action_buttons,
-#         utils.icon_buttons,
-#         utils.progress_indicators,
-#         utils.snackbar,
-#         utils.bottom_sheet,
-#         utils.cards,
-#         utils.dialogs,
-#         utils.dividers
-#     )
+    def handle_brightness_change(self, e):
+        self.page.theme_mode = "light" if self.page.theme_mode == "dark" else "dark"
+        self.page.update()
+
+    def handle_material_version_change(self, e):
+        self.page.theme = self.page.dark_theme = ft.Theme(use_material3=not self.page.theme.use_material3)
+        e.control.tooltip = f"Use Material {2 if self.page.theme.use_material3==True else 3}"
+        self.page.update()
 
 
 if __name__ == '__main__':
