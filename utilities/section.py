@@ -20,21 +20,27 @@ class SubSection(ft.UserControl):
             [
                 ft.Row(
                     [
-                        ft.Text(value=self.title, size=18),
+                        ft.Text(value=self.title, size=16),
                         ft.IconButton(
                             icon=ft.icons.HELP_OUTLINE,
-                            tooltip=self.help_text
+                            tooltip=self.help_text,
+                            icon_size=15
                         ) if self.help_text else ft.Container()
                     ],
-                    alignment=ft.MainAxisAlignment.CENTER
+                    alignment=ft.MainAxisAlignment.CENTER,
+
                 ) if self.title else ft.Container(),
                 ft.Container(
                     content=self.widget,
-                    width=420,
-                    alignment=ft.alignment.center
+                    width=445,
+                    alignment=ft.alignment.center,
+                    border_radius=10,
+                    bgcolor=ft.colors.BACKGROUND,
+                    padding=30
                 )
             ],
-            horizontal_alignment=ft.CrossAxisAlignment.CENTER
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+            spacing=0
         )
 
 
@@ -55,7 +61,7 @@ class Section(ft.UserControl):
                 controls=[
                     ft.Row(
                         controls=[
-                            ft.Text(self.title, size=24) if self.title else ft.Container(),
+                            ft.Text(self.title, size=22) if self.title else ft.Container(),
                         ],
                         alignment=ft.MainAxisAlignment.CENTER,
                     ),
@@ -66,4 +72,8 @@ class Section(ft.UserControl):
                 ],
                 alignment=ft.MainAxisAlignment.START
             ),
+            alignment=ft.alignment.center,
+            border_radius=10,
+            bgcolor=ft.colors.ON_INVERSE_SURFACE,
+            padding=20
         )
