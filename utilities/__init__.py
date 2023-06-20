@@ -1,6 +1,6 @@
 try:
-    from .SubSection import SubSection
-    from .Section import Section
+    from .section import Section, SubSection
+    from .section_components import actions_section
 except ModuleNotFoundError:
-    from SubSection import Subsection
-    from Section import Section
+    from section import Section, SubSection
+    from section_components import actions_section
