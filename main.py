@@ -1,5 +1,5 @@
 import flet as ft
-import pages
+from utilities import actions_section
 
 
 class Main(object):
@@ -7,13 +7,13 @@ class Main(object):
         self.page: ft.Page | None = None
 
     def run(self, page):
-        self.page = page
+        self.page: ft.Page = page
         self.page.title = "Flet Material 3 Demo"
         self.page.scroll = ft.ScrollMode.AUTO
-        self.page.theme_mode = ft.ThemeMode.LIGHT
-        # page.window_always_on_top = True
+        # self.page.window_always_on_top = True
+        self.page.theme_mode = "light"
         self.page.horizontal_alignment = self.page.vertical_alignment = "center"
-        self.page.theme = self.page.dark_theme = ft.Theme(use_material3=True, color_scheme_seed="green")
+        self.page.theme = self.page.dark_theme = ft.Theme(use_material3=True)
         self.page.appbar = ft.AppBar(
             title=ft.Text("Material 3"),
             actions=[
@@ -24,8 +24,9 @@ class Main(object):
             ]
         )
 
-        self.page.views.append(pages.WidgetsPage())
-        self.page.go('/WidgetsPage')
+        self.page.add(
+            actions_section
+        )
 
 # def main(page: ft.Page):
 #     page.title = "Flet Material 3 Demo"
