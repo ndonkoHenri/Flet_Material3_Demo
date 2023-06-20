@@ -1,5 +1,5 @@
 # Flet_Material3_Demo
-Rebuilding the [Flutter version](https://flutter.github.io/samples/web/material_3_demo/#/) using the [Flet](https://flet.dev) python framework.
+Rebuilding the Flutter version([web link](https://flutter.github.io/samples/web/material_3_demo/#/), [GitHub repo](https://github.com/chayanforyou/flutter_material_3_demo/blob/master/lib/main.dart)) using the [Flet](https://flet.dev) python framework.
 
 ## Getting Started (Pyenv + Poetry)
 * Install [pyenv-win](https://github.com/pyenv-win/pyenv-win)(for windows) or [pyenv](https://github.com/pyenv/pyenv)(for linux)
