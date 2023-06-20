@@ -35,6 +35,7 @@ class Main(object):
     def handle_material_version_change(self, e):
         self.page.theme = self.page.dark_theme = ft.Theme(use_material3=not self.page.theme.use_material3)
         e.control.tooltip = f"Use Material {2 if self.page.theme.use_material3==True else 3}"
+        self.page.appbar.title.value = f"Material {3 if self.page.theme.use_material3==True else 2}"
         self.page.update()
 
 
