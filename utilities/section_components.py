@@ -1,34 +1,38 @@
 import flet as ft
 from .section import Section, SubSection
 
-cb_width = 130
+# Actions Components
+
+cb_width = 127
+cb_width_icon = cb_width - 20
+cb_height = 35
 common_buttons = ft.Row(
     [
         ft.Column(
             [
-                ft.ElevatedButton("Elevated", width=cb_width),
-                ft.FilledButton("Filled", width=cb_width),
-                ft.FilledTonalButton("Filled tonal", width=cb_width),
-                ft.OutlinedButton("Outlined", width=cb_width),
-                ft.TextButton("Text", width=cb_width)
+                ft.ElevatedButton("Elevated", width=cb_width, height=cb_height),
+                ft.FilledButton("Filled", width=cb_width, height=cb_height),
+                ft.FilledTonalButton("Filled tonal", width=cb_width, height=cb_height),
+                ft.OutlinedButton("Outlined", width=cb_width, height=cb_height),
+                ft.TextButton("Text", width=cb_width, height=cb_height)
             ]
         ),
         ft.Column(
             [
-                ft.ElevatedButton("Icon", icon=ft.icons.ADD, width=cb_width),
-                ft.FilledButton("Icon", icon=ft.icons.ADD, width=cb_width),
-                ft.FilledTonalButton("Icon", icon=ft.icons.ADD, width=cb_width),
-                ft.OutlinedButton("Icon", icon=ft.icons.ADD, width=cb_width),
-                ft.TextButton("Icon", icon=ft.icons.ADD, width=cb_width)
+                ft.ElevatedButton("Icon", icon=ft.icons.ADD, width=cb_width_icon, height=cb_height),
+                ft.FilledButton("Icon", icon=ft.icons.ADD, width=cb_width_icon, height=cb_height),
+                ft.FilledTonalButton("Icon", icon=ft.icons.ADD, width=cb_width_icon, height=cb_height),
+                ft.OutlinedButton("Icon", icon=ft.icons.ADD, width=cb_width_icon, height=cb_height),
+                ft.TextButton("Icon", icon=ft.icons.ADD, width=cb_width_icon, height=cb_height)
             ]
         ),
         ft.Column(
             [
-                ft.ElevatedButton("Elevated", width=cb_width),
-                ft.FilledButton("Filled", width=cb_width, disabled=True),
-                ft.FilledTonalButton("Filled tonal", width=cb_width, disabled=True),
-                ft.OutlinedButton("Outlined", width=cb_width),
-                ft.TextButton("Text", width=cb_width)
+                ft.ElevatedButton("Elevated", width=cb_width, height=cb_height),
+                ft.FilledButton("Filled", width=cb_width, height=cb_height, disabled=True),
+                ft.FilledTonalButton("Filled tonal", width=cb_width, height=cb_height, disabled=True),
+                ft.OutlinedButton("Outlined", width=cb_width, height=cb_height),
+                ft.TextButton("Text", width=cb_width, height=cb_height)
             ],
             disabled=True
         )
@@ -37,10 +41,10 @@ common_buttons = ft.Row(
 
 floating_action_buttons = ft.Row(
     controls=[
-        ft.FloatingActionButton(icon=ft.icons.ADD, tooltip="Small"),
+        ft.FloatingActionButton(icon=ft.icons.ADD, tooltip="Small", mini=True),
         ft.FloatingActionButton("Create", icon=ft.icons.ADD, tooltip="Extended"),
         ft.FloatingActionButton(icon=ft.icons.ADD, tooltip="Standard"),
-        ft.FloatingActionButton(icon=ft.icons.ADD, tooltip="Large"),
+        ft.FloatingActionButton(content=ft.Icon(ft.icons.ADD, size=35), tooltip="Large", height=92, width=90),
     ],
     vertical_alignment=ft.CrossAxisAlignment.CENTER,
     alignment=ft.MainAxisAlignment.CENTER
@@ -69,16 +73,8 @@ icon_buttons = ft.Column(
     ]
 )
 
-alert_dialog = ft.AlertDialog(
-    title=ft.Text("What is a Dialog?"),
-    content=ft.Text(
-        "A dialog is a type of modal window that appears in front of app content to provide critical information, or prompt for a decision to be made."),
-    actions=[
-        ft.TextButton("Okay"),
-        ft.ElevatedButton("Dismiss")
-    ]
-)
 
+# Communication Components
 
 def play_progress_indicators(e):
     if not progress_indicators.controls[1].value:
@@ -93,11 +89,13 @@ progress_indicators = ft.Row(
     controls=[
         ft.IconButton(ft.icons.PLAY_ARROW, on_click=play_progress_indicators),
         ft.ProgressRing(value=0.7),
-        ft.ProgressBar(value=0.7, width=320)
+        ft.ProgressBar(value=0.7, width=290)
     ]
 )
 
 snackbar = ft.TextButton("Show snackbar")
+
+# Containment Components
 
 bottom_sheet = ft.Row(
     [
@@ -107,6 +105,16 @@ bottom_sheet = ft.Row(
 )
 
 cards = ft.Text("To be Done")
+
+alert_dialog = ft.AlertDialog(
+    title=ft.Text("What is a Dialog?"),
+    content=ft.Text(
+        "A dialog is a type of modal window that appears in front of app content to provide critical information, or prompt for a decision to be made."),
+    actions=[
+        ft.TextButton("Okay"),
+        ft.ElevatedButton("Dismiss")
+    ]
+)
 
 dialogs = ft.Row(
     [
@@ -265,6 +273,12 @@ actions_section = Section(
             "Use ElevatedButton, FilledButton, FilledTonalButton, OutlinedButton or TextButton and set icon property",
             icon_buttons
         ),
+    ]
+)
+
+communication_section = Section(
+    "Communication",
+    [
         SubSection(
             "Progress Indicators",
             "Use ProgressBar or ProgressRing",
@@ -275,6 +289,12 @@ actions_section = Section(
             "Use page.show_snackbar with Snackbar",
             snackbar
         ),
+    ]
+)
+
+containment_section = Section(
+    "Containment",
+    [
         SubSection(
             "Bottom sheet",
             "Use page.show_bottom_sheet with BottomSheet",
@@ -303,6 +323,41 @@ navigation_section = Section(
 selection_section = Section(
     "Selection",
     [
+        SubSection(
+            "Checkboxes",
+            "Use Checkbox",
+            checkboxes
+        ),
+        SubSection(
+            "Date picker",
+            "Use ...",
+            date_picker
+        ),
+        SubSection(
+            "Menus",
+            "Use PopupMenuButton, PopupMenuItem, and Dropdown",
+            menus
+        ),
+        SubSection(
+            "Radio buttons",
+            "Use Radio and RadioGroup",
+            radio_buttons
+        ),
+        SubSection(
+            "Sliders",
+            "Use Slider",
+            sliders
+        ),
+        SubSection(
+            "Switches",
+            "Use Switch",
+            switches
+        ),
+        SubSection(
+            "Time picker",
+            "Use ...",
+            time_picker
+        )
 
     ]
 )
