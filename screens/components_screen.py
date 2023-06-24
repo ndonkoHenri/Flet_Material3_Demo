@@ -1,5 +1,5 @@
 import flet as ft
-from .section import Section, SubSection
+from Flet_Material3_Demo.utilities import SubSection, Section
 
 # Actions Components
 
