@@ -1,5 +1,5 @@
 import flet as ft
-from utilities import *
+from screens import typography, components, colors
 
 
 class Main(object):
@@ -12,7 +12,7 @@ class Main(object):
         self.page.scroll = ft.ScrollMode.AUTO
         # self.page.window_always_on_top = True
         self.page.theme_mode = "light"
-        self.page.horizontal_alignment = self.page.vertical_alignment = "center"
+        # self.page.horizontal_alignment = self.page.vertical_alignment = "center"
         self.page.theme = self.page.dark_theme = ft.Theme(use_material3=True)
         self.page.appbar = ft.AppBar(
             title=ft.Text("Material 3"),
@@ -25,12 +25,9 @@ class Main(object):
         )
 
         self.page.add(
-            actions_section,
-            communication_section,
-            containment_section,
-            navigation_section,
-            selection_section,
-            text_inputs_section
+            # *components,
+            # typography
+            colors
         )
 
     def handle_brightness_change(self, e):
