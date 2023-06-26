@@ -77,3 +77,13 @@ class Section(ft.UserControl):
             bgcolor=ft.colors.ON_INVERSE_SURFACE,
             padding=20
         )
+
+
+class BottomSheetButton(ft.Column):
+    def __init__(self, icon, text):
+        super().__init__()
+        self.controls = [
+            ft.IconButton(icon),
+            ft.Text(text)
+        ]
+        self.spacing = 0

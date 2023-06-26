@@ -97,6 +97,31 @@ snackbar = ft.TextButton("Show snackbar")
 
 # Containment Components
 
+bs_func = lambda e: e.page.show_bottom_sheet(
+    ft.BottomSheet(
+        ft.Container(
+            ft.Row(
+                [
+                    BottomSheetButton(ft.icons.SHARE_OUTLINED, "Share"),
+                    BottomSheetButton(ft.icons.ADD, "Add to"),
+                    BottomSheetButton(ft.icons.TRANSIT_ENTEREXIT_SHARP, "Trash"),
+                    BottomSheetButton(ft.icons.ARCHIVE_OUTLINED, "Archive"),
+                    BottomSheetButton(ft.icons.SETTINGS_OUTLINED, "Settings"),
+                    BottomSheetButton(ft.icons.FAVORITE_BORDER, "Favorite"),
+                ],
+                alignment=ft.MainAxisAlignment.SPACE_AROUND
+            ),
+            padding=25,
+        ),
+        # open=True,
+        # on_dismiss=bs_dismissed,
+        dismissible=True,
+        show_drag_handle=True, # if ... modal or not,
+        enable_drag=True,
+        use_safe_area=True
+    )
+)
+
 bottom_sheet = ft.Row(
     [
         ft.TextButton("Show modal bottom sheet"),
