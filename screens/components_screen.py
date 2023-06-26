@@ -1,5 +1,6 @@
 import flet as ft
-from Flet_Material3_Demo.utilities import SubSection, Section
+
+from Flet_Material3_Demo.utilities import SubSection, Section, BottomSheetButton
 
 # Actions Components
 
@@ -93,7 +94,10 @@ progress_indicators = ft.Row(
     ]
 )
 
-snackbar = ft.TextButton("Show snackbar")
+snackbar = ft.TextButton(
+    "Show snackbar",
+    on_click=lambda e: e.page.show_snack_bar(ft.SnackBar(ft.Text("This is a snackbar."), action="Close"))
+)
 
 # Containment Components
 
@@ -124,27 +128,45 @@ bs_func = lambda e: e.page.show_bottom_sheet(
 
 bottom_sheet = ft.Row(
     [
-        ft.TextButton("Show modal bottom sheet"),
-        ft.TextButton("Show bottom sheet")
+        ft.TextButton("Show modal bottom sheet", on_click=bs_func),
+        ft.TextButton("Show bottom sheet", on_click=bs_func)
     ]
 )
 
 cards = ft.Text("To be Done")
+
+
+def close_dlg(e: ft.ControlEvent):
+    e.control.page.dialog.open = False
+    e.control.page.update()
+
 
 alert_dialog = ft.AlertDialog(
     title=ft.Text("What is a Dialog?"),
     content=ft.Text(
         "A dialog is a type of modal window that appears in front of app content to provide critical information, or prompt for a decision to be made."),
     actions=[
-        ft.TextButton("Okay"),
-        ft.ElevatedButton("Dismiss")
-    ]
+        ft.TextButton("Okay", on_click=close_dlg),
+        ft.ElevatedButton("Dismiss", on_click=close_dlg)
+    ],
+    actions_alignment=ft.MainAxisAlignment.END
 )
+
+
+def show_dlg(e: ft.ControlEvent):
+    if e.control.data == 1:
+        e.control.page.dialog = alert_dialog
+    else:
+        # e.control.page.dialog = full_screen_dialog
+        pass
+    e.control.page.dialog.open = True
+    e.control.page.update()
+
 
 dialogs = ft.Row(
     [
-        ft.TextButton("Show dialog"),
-        ft.TextButton("Show full-screen dialog")
+        ft.TextButton("Show dialog", on_click=show_dlg, data=1),
+        ft.TextButton("Show full-screen dialog", on_click=show_dlg)
     ]
 )
 
@@ -392,4 +414,13 @@ text_inputs_section = Section(
     [
 
     ]
+)
+
+components = (
+    actions_section,
+    communication_section,
+    containment_section,
+    navigation_section,
+    selection_section,
+    text_inputs_section
 )
