@@ -1,5 +1,5 @@
 import flet as ft
-from screens import typography, components, colors
+from screens import typography, components, colors, elevation
 
 
 class Main(object):
@@ -9,6 +9,7 @@ class Main(object):
     def run(self, page):
         self.page: ft.Page = page
         self.page.title = "Flet Material 3 Demo"
+        self.page.window_height, self.page.window_width = 550, 500
         self.page.scroll = ft.ScrollMode.AUTO
         # self.page.window_always_on_top = True
         self.page.theme_mode = "light"
@@ -18,7 +19,11 @@ class Main(object):
             title=ft.Text("Material 3"),
             actions=[
                 ft.IconButton(ft.icons.SHIELD_MOON, on_click=self.handle_brightness_change),
-                ft.IconButton(ft.icons.LOOKS_TWO_OUTLINED, on_click=self.handle_material_version_change, tooltip="Use Material 2"),
+                ft.IconButton(
+                    ft.icons.LOOKS_TWO_OUTLINED,
+                    on_click=self.handle_material_version_change,
+                    tooltip="Use Material 2"
+                ),
                 ft.IconButton(ft.icons.FORMAT_PAINT_ROUNDED),
                 ft.IconButton(ft.icons.IMAGE_OUTLINED)
             ]
@@ -36,8 +41,8 @@ class Main(object):
 
     def handle_material_version_change(self, e):
         self.page.theme = self.page.dark_theme = ft.Theme(use_material3=not self.page.theme.use_material3)
-        e.control.tooltip = f"Use Material {2 if self.page.theme.use_material3==True else 3}"
-        self.page.appbar.title.value = f"Material {3 if self.page.theme.use_material3==True else 2}"
+        e.control.tooltip = f"Use Material {2 if self.page.theme.use_material3 == True else 3}"
+        self.page.appbar.title.value = f"Material {3 if self.page.theme.use_material3 == True else 2}"
         self.page.update()
 
 
