@@ -73,7 +73,7 @@ class ComponentSection(ft.UserControl):
             ),
             alignment=ft.alignment.center,
             border_radius=10,
-            bgcolor=ft.colors.SURFACE_VARIANT,
+            bgcolor=ft.colors.ON_INVERSE_SURFACE,
             padding=20
         )
 
@@ -106,6 +106,16 @@ class CardContainer(ft.Container):
         )
 
 
+class TabContent(ft.Column):
+    def __init__(self, icon, text):
+        super().__init__()
+        self.controls = [
+            ft.IconButton(icon),
+            ft.Text(text)
+        ]
+        self.spacing = 0
+
+
 class InputFields(ft.Column):
     def __init__(self, field_type: str):
         super().__init__()
@@ -134,7 +144,7 @@ class InputFields(ft.Column):
                     suffix=ft.IconButton(ft.icons.CANCEL, on_click=self.clear),
                     on_change=self.on_change,
                     height=80,
-                    content_padding=ft.Padding(p, p+1, p, p+5)
+                    content_padding=ft.Padding(p, p + 1, p, p + 5)
                 )
             )
 
