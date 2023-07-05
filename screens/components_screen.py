@@ -102,6 +102,10 @@ snackbar = ft.TextButton(
         ft.SnackBar(
             ft.Text("This is a snackbar.", color=ft.colors.SURFACE),
             action="Close",
+            width=365,
+            behavior=ft.SnackBarBehavior.FLOATING,
+            duration=8000,
+            # dismiss_direction=ft.DismissDirection.HORIZONTAL
         )
     )
 )
