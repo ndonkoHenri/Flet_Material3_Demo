@@ -479,11 +479,25 @@ text_inputs_section = ComponentSection(
     ]
 )
 
-components = (
-    actions_section,
-    communication_section,
-    containment_section,
-    navigation_section,
-    selection_section,
-    text_inputs_section
+components = ft.ResponsiveRow(
+    [
+        ft.Column(
+            controls=[
+                actions_section,
+                communication_section,
+                containment_section
+            ],
+            col={"lg": 6, "sm": 12},
+            scroll=ft.ScrollMode.HIDDEN
+        ),
+        ft.Column(
+            controls=[
+                # navigation_section,
+                selection_section,
+                text_inputs_section
+            ],
+            col={"lg": 6, "sm": 12},
+            scroll=ft.ScrollMode.AUTO
+        )
+    ]
 )

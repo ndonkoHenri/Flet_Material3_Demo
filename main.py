@@ -13,7 +13,6 @@ class Main(object):
         self.page.scroll = ft.ScrollMode.AUTO
         # self.page.window_always_on_top = True
         self.page.theme_mode = "light"
-        # self.page.horizontal_alignment = self.page.vertical_alignment = "center"
         self.page.theme = self.page.dark_theme = ft.Theme(use_material3=True)
         self.page.appbar = ft.AppBar(
             title=ft.Text("Material 3"),
@@ -30,9 +29,9 @@ class Main(object):
         )
 
         self.page.add(
-            # *components,
+            components,
             # typography
-            colors
+            # colors
         )
 
     def handle_brightness_change(self, e):
