@@ -129,17 +129,16 @@ bs_func = lambda e: e.page.show_bottom_sheet(
             padding=25,
             height=125
         ),
-        # on_dismiss=bs_dismissed,
         dismissible=True,
-        show_drag_handle=True,  # if ... modal or not,
+        show_drag_handle=modal,
         enable_drag=True,
     )
 )
 
 bottom_sheet = ft.Row(
     [
-        ft.TextButton("Show modal bottom sheet", on_click=bs_func),
-        ft.TextButton("Show bottom sheet", on_click=bs_func)
+        ft.TextButton("Show modal bottom sheet", on_click=lambda e: bs_func(e, modal=True)),
+        ft.TextButton("Show bottom sheet", on_click=lambda e: bs_func(e, modal=False))
     ]
 )
 
