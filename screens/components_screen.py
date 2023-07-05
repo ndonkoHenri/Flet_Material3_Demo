@@ -1,5 +1,5 @@
 import flet as ft
-from Flet_Material3_Demo.utilities import ComponentSubSection, ComponentSection, BottomSheetButton, CardContainer, InputFields
+from Flet_Material3_Demo.utilities import ComponentSubSection, ComponentSection, BottomSheetButton, CardContainer, InputFields, TabContent
 
 # Actions Components
 
@@ -203,7 +203,20 @@ dialogs = ft.Row(
 dividers = ft.Divider(height=5, thickness=1)
 
 # Navigation Components
-# TBD
+tabs_section = ft.Tabs(
+    tabs=[
+        ft.Tab(
+            content=TabContent(ft.icons.VIDEO_CALL, "Video")
+        ),
+        ft.Tab(
+            content=TabContent(ft.icons.PHOTO, "Photo")
+        ),
+        ft.Tab(
+            content=TabContent(ft.icons.AUDIOTRACK, "Audio")
+        )
+    ],
+    # expand=True
+)
 
 # Selection Components
 checkboxes = ft.ListView(
@@ -404,7 +417,11 @@ containment_section = ComponentSection(
 navigation_section = ComponentSection(
     "Navigation",
     [
-
+        ComponentSubSection(
+            "Tabs",
+            "Use Tabs",
+            tabs_section
+        )
     ]
 )
 
