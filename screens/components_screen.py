@@ -111,8 +111,9 @@ snackbar = ft.TextButton(
 )
 
 # Containment Components
+# todo: is it possible for the non-modal BS not to have an overlay like in the flutter version?
 
-bs_func = lambda e: e.page.show_bottom_sheet(
+bs_func = lambda e, modal: e.page.show_bottom_sheet(
     ft.BottomSheet(
         ft.Container(
             ft.Row(
