@@ -89,4 +89,7 @@ class Main(object):
 
 
 if __name__ == '__main__':
-    ft.app(target=Main().run)
+    ft.app(
+        target=Main().run,
+        view=ft.WEB_BROWSER
+    )
