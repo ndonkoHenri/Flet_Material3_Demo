@@ -134,7 +134,6 @@ snackbar = ft.TextButton(
 )
 
 # Containment Components
-# todo: is it possible for the non-modal BS not to have an overlay like in the flutter version?
 
 bs_func = lambda e, modal: e.page.show_bottom_sheet(
     ft.BottomSheet(
@@ -208,19 +207,20 @@ alert_dialog = ft.AlertDialog(
 
 
 def show_dlg(e: ft.ControlEvent):
-    if e.control.data == 1:
-        e.control.page.dialog = alert_dialog
-    else:
-        # e.control.page.dialog = full_screen_dialog
-        pass
-    e.control.page.dialog.open = True
+    match e.control.data:
+        case 1:
+            e.control.page.dialog = alert_dialog
+            e.control.page.dialog.open = True
+        case 2:
+            e.page.go("/a")
+
     e.control.page.update()
 
 
 dialogs = ft.Row(
     [
         ft.TextButton("Show dialog", on_click=show_dlg, data=1),
-        ft.TextButton("Show full-screen dialog", on_click=show_dlg)
+        ft.TextButton("Show full-screen dialog", on_click=show_dlg, data=2)
     ],
     alignment=ft.MainAxisAlignment.CENTER
 )

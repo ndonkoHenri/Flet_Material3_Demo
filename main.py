@@ -34,10 +34,10 @@ class Main:
                 )
             ],
             on_change=self.handle_nav_rail_change,
-            trailing=ft.Column(self._action_buttons()),
+            trailing=ft.Column(self._action_buttons(), alignment=ft.MainAxisAlignment.END),
             # visible=True if self.page.width >= self.width_breakpoint else False,
             expand=1,
-            height=550
+            height=800
         )
 
     def _action_buttons(self):
@@ -92,6 +92,8 @@ class Main:
         self.page.title = "Flet Material 3 Demo"
         self.page.window_height, self.page.window_width = 550, 1000
         self.page.on_resize = self.handle_page_resize
+        self.page.on_route_change = self.handle_route_change
+        self.page.on_view_pop = self.handle_view_pop
         self.page.scroll = ft.ScrollMode.HIDDEN
         self.page.padding = ft.Padding(5, 0, 5, 0)
         # self.page.window_always_on_top = True
@@ -189,6 +191,27 @@ class Main:
     def handle_nav_rail_change(self, e: ft.ControlEvent):
         self.page.controls[0].controls[-1] = self.screens[int(e.data)]
         self.page.update()
+
+    def handle_route_change(self, e: ft.RouteChangeEvent):
+        if e.route == "/a":
+            self.page.views.append(
+                ft.View(
+                    e.route,
+                    [
+                        ft.AppBar(
+                            title=ft.Text("Full-screen dialog"),
+                            actions=[ft.TextButton("Close", on_click=self.handle_view_pop)]
+                        ),
+                    ],
+                    fullscreen_dialog=True
+                )
+            )
+            self.page.update()
+
+    def handle_view_pop(self, v: ft.ViewPopEvent):
+        self.page.views.pop()
+        top_view = self.page.views[-1]
+        self.page.go(top_view.route)
 
 
 if __name__ == '__main__':
