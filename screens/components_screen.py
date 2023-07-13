@@ -76,6 +76,31 @@ icon_buttons = ft.Column(
 
 
 # Communication Components
+badges = ft.NavigationBar(
+    destinations=[
+        ft.NavigationDestination(
+            icon=ft.icons.EMAIL_OUTLINED,
+            selected_icon=ft.icons.EMAIL,
+            label="Mail"
+        ),
+        ft.NavigationDestination(
+            icon=ft.icons.PEOPLE_OUTLINE_SHARP,
+            selected_icon=ft.icons.PEOPLE_SHARP,
+            label="Chat"
+        ),
+        ft.NavigationDestination(
+            icon=ft.icons.ACCOUNT_BOX_OUTLINED,
+            selected_icon=ft.icons.ACCOUNT_BOX,
+            label="Rooms"
+        ),
+        ft.NavigationDestination(
+            icon=ft.icons.VIDEOCAM_OUTLINED,
+            selected_icon=ft.icons.VIDEOCAM,
+            label="Meet"
+        )
+    ],
+)
+
 
 def play_progress_indicators(e):
     if not progress_indicators.controls[1].value:
@@ -429,6 +454,11 @@ communication_section = ComponentSection(
     "Communication",
     [
         ComponentSubSection(
+            "Badges",
+            "Use ..",
+            badges
+        ),
+        ComponentSubSection(
             "Progress Indicators",
             "Use ProgressBar or ProgressRing",
             progress_indicators
@@ -471,8 +501,8 @@ navigation_section = ComponentSection(
     "Navigation",
     [
         ComponentSubSection(
-            "Navigation Bar",
-            "Use NavigationBar and NavigationDestination",
+            "Navigation Rail",
+            "Use NavigationRail and NavigationRailDestination",
             navrail
         ),
         ComponentSubSection(
