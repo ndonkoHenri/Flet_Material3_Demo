@@ -479,25 +479,27 @@ text_inputs_section = ComponentSection(
     ]
 )
 
-components = ft.ResponsiveRow(
-    [
-        ft.Column(
-            controls=[
-                actions_section,
-                communication_section,
-                containment_section
-            ],
-            col={"lg": 6, "sm": 12},
-            scroll=ft.ScrollMode.HIDDEN
-        ),
-        ft.Column(
-            controls=[
-                # navigation_section,
-                selection_section,
-                text_inputs_section
-            ],
-            col={"lg": 6, "sm": 12},
-            scroll=ft.ScrollMode.AUTO
-        )
-    ]
-)
+
+class ComponentScreen(ft.ResponsiveRow):
+    def __init__(self):
+        super().__init__(expand=19)
+        self.controls = [
+            ft.Column(
+                controls=[
+                    actions_section,
+                    communication_section,
+                    containment_section
+                ],
+                col={"lg": 6, "sm": 12},
+                scroll=ft.ScrollMode.HIDDEN
+            ),
+            ft.Column(
+                controls=[
+                    navigation_section,
+                    selection_section,
+                    text_inputs_section
+                ],
+                col={"lg": 6, "sm": 12},
+                scroll=ft.ScrollMode.AUTO
+            )
+        ]
