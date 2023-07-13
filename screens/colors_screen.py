@@ -1,5 +1,5 @@
 import flet as ft
-from Flet_Material3_Demo.utilities import ColorContainer
+from Flet_Material3_Demo.utilities.color_utils import ColorContainer
 
 containers_spacing = 18
 d = [

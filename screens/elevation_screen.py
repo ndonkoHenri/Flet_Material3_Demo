@@ -1,5 +1,5 @@
 import flet as ft
-from Flet_Material3_Demo.utilities import ElevationSection
+from Flet_Material3_Demo.utilities.elevation_utils import ElevationSection
 
 
 class ElevationScreen(ft.Column):

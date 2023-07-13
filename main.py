@@ -1,5 +1,5 @@
 import flet as ft
-from screens import typography, components, colors, elevation
+from screens import TypographyScreen, ComponentScreen, ColorScreen, ElevationScreen
 
 
 class Main(object):
