@@ -106,16 +106,6 @@ class CardContainer(ft.Container):
         )
 
 
-class TabContent(ft.Column):
-    def __init__(self, icon, text):
-        super().__init__()
-        self.controls = [
-            ft.IconButton(icon),
-            ft.Text(text)
-        ]
-        self.spacing = 0
-
-
 class InputFields(ft.Column):
     def __init__(self, field_type: str):
         super().__init__()

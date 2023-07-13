@@ -1,5 +1,5 @@
 import flet as ft
-from Flet_Material3_Demo.utilities import ComponentSubSection, ComponentSection, BottomSheetButton, CardContainer, InputFields, TabContent
+from Flet_Material3_Demo.utilities import ComponentSubSection, ComponentSection, BottomSheetButton, CardContainer, InputFields
 
 # Actions Components
 
@@ -207,16 +207,18 @@ dividers = ft.Divider(height=5, thickness=1)
 tabs_section = ft.Tabs(
     tabs=[
         ft.Tab(
-            content=TabContent(ft.icons.VIDEO_CALL, "Video")
+            "Video",
+            icon=ft.icons.VIDEO_CALL
         ),
         ft.Tab(
-            content=TabContent(ft.icons.PHOTO, "Photo")
+            "Photo",
+            icon=ft.icons.PHOTO
         ),
         ft.Tab(
-            content=TabContent(ft.icons.AUDIOTRACK, "Audio")
+            "Audio",
+            icon=ft.icons.AUDIOTRACK
         )
     ],
-    # expand=True
 )
 
 # Selection Components
@@ -341,8 +343,6 @@ switches = ft.Row(
 time_picker = ft.TextButton("Show time picker")
 
 # Text Input Components
-
-
 text_inputs = ft.Column(
     controls=[
         InputFields("filled"),
@@ -420,9 +420,9 @@ navigation_section = ComponentSection(
     [
         ComponentSubSection(
             "Tabs",
-            "Use Tabs",
-            tabs_section
-        )
+            "Use Tabs and Tab",
+            tabs
+        ),
     ]
 )
 
