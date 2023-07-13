@@ -101,7 +101,9 @@ class Main:
 
         self.page.appbar = ft.AppBar(
             title=ft.Text("Material 3"),
-            actions=None if self.page.width >= self.width_breakpoint else self._action_buttons()
+            actions=[
+                ft.Row(self._action_buttons(), visible=False if self.page.width >= self.width_breakpoint else True)
+            ],
         )
         self.page.navigation_bar = ft.NavigationBar(
             destinations=[
@@ -156,25 +158,27 @@ class Main:
     def handle_seed_color_change(self, e):
         self.page.theme.color_scheme_seed = self.page.dark_theme.color_scheme_seed = e.control.data
         # update icon of the selected color
-        for i in self.page.appbar.actions[2].items:
+        for i, j in zip(self.page.appbar.actions[0].controls[2].items, self.nav_rail.trailing.controls[2].items):
             # deactivate all
             if i.content.controls[0].name == ft.icons.COLOR_LENS:
                 i.content.controls[0].name = ft.icons.COLOR_LENS_OUTLINED
+                j.content.controls[0].name = ft.icons.COLOR_LENS_OUTLINED
             # set the clicked one
             if i.content.controls[0].color == e.control.data:
                 i.content.controls[0].name = ft.icons.COLOR_LENS
+                j.content.controls[0].name = ft.icons.COLOR_LENS
         self.page.update()
 
     def handle_page_resize(self, e):
-        print(self.page.width, self.page.window_width, self.page.height, self.page.window_height)
+        # print(self.page.width, self.page.window_width, self.page.height, self.page.window_height)
         if self.page.width >= self.width_breakpoint:
             self.page.navigation_bar.visible = False
             self.nav_rail.visible = True
-            self.page.appbar.actions = None
+            self.page.appbar.actions[0].visible = False
         else:
             self.page.navigation_bar.visible = True
             self.nav_rail.visible = False
-            self.page.appbar.actions = self._action_buttons()
+            self.page.appbar.actions[0].visible = True
 
         self.page.update()
 
