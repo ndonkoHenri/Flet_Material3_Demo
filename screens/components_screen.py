@@ -6,40 +6,38 @@ from Flet_Material3_Demo.utilities import ComponentSubSection, ComponentSection,
 _cb_width = 125
 _cb_width_icon = _cb_width - 25
 _cb_height = 35
-common_buttons = ft.Container(
-    ft.Row(
-        [
-            ft.Column(
-                [
-                    ft.ElevatedButton("Elevated", width=_cb_width, height=_cb_height),
-                    ft.FilledButton("Filled", width=_cb_width, height=_cb_height),
-                    ft.FilledTonalButton("Filled tonal", width=_cb_width, height=_cb_height),
-                    ft.OutlinedButton("Outlined", width=_cb_width, height=_cb_height),
-                    ft.TextButton("Text", width=_cb_width, height=_cb_height)
-                ],
-            ),
-            ft.Column(
-                [
-                    ft.ElevatedButton("Icon", icon=ft.icons.ADD, width=_cb_width_icon, height=_cb_height),
-                    ft.FilledButton("Icon", icon=ft.icons.ADD, width=_cb_width_icon, height=_cb_height),
-                    ft.FilledTonalButton("Icon", icon=ft.icons.ADD, width=_cb_width_icon, height=_cb_height),
-                    ft.OutlinedButton("Icon", icon=ft.icons.ADD, width=_cb_width_icon, height=_cb_height),
-                    ft.TextButton("Icon", icon=ft.icons.ADD, width=_cb_width_icon, height=_cb_height)
-                ],
-            ),
-            ft.Column(
-                [
-                    ft.ElevatedButton("Elevated", width=_cb_width, height=_cb_height),
-                    ft.FilledButton("Filled", width=_cb_width, height=_cb_height, disabled=True),
-                    ft.FilledTonalButton("Filled tonal", width=_cb_width, height=_cb_height, disabled=True),
-                    ft.OutlinedButton("Outlined", width=_cb_width, height=_cb_height),
-                    ft.TextButton("Text", width=_cb_width, height=_cb_height)
-                ],
-                disabled=True,
-            )
-        ],
-    ),
-    padding=ft.Padding(2, 0, 5, 0)
+common_buttons = ft.Row(
+    [
+        ft.Column(
+            [
+                ft.ElevatedButton("Elevated", width=_cb_width, height=_cb_height),
+                ft.FilledButton("Filled", width=_cb_width, height=_cb_height),
+                ft.FilledTonalButton("Filled tonal", width=_cb_width, height=_cb_height),
+                ft.OutlinedButton("Outlined", width=_cb_width, height=_cb_height),
+                ft.TextButton("Text", width=_cb_width, height=_cb_height)
+            ],
+        ),
+        ft.Column(
+            [
+                ft.ElevatedButton("Icon", icon=ft.icons.ADD, width=_cb_width_icon, height=_cb_height),
+                ft.FilledButton("Icon", icon=ft.icons.ADD, width=_cb_width_icon, height=_cb_height),
+                ft.FilledTonalButton("Icon", icon=ft.icons.ADD, width=_cb_width_icon, height=_cb_height),
+                ft.OutlinedButton("Icon", icon=ft.icons.ADD, width=_cb_width_icon, height=_cb_height),
+                ft.TextButton("Icon", icon=ft.icons.ADD, width=_cb_width_icon, height=_cb_height)
+            ],
+        ),
+        ft.Column(
+            [
+                ft.ElevatedButton("Elevated", width=_cb_width, height=_cb_height),
+                ft.FilledButton("Filled", width=_cb_width, height=_cb_height, disabled=True),
+                ft.FilledTonalButton("Filled tonal", width=_cb_width, height=_cb_height, disabled=True),
+                ft.OutlinedButton("Outlined", width=_cb_width, height=_cb_height),
+                ft.TextButton("Text", width=_cb_width, height=_cb_height)
+            ],
+            disabled=True,
+        )
+    ],
+    alignment=ft.MainAxisAlignment.CENTER
 )
 
 floating_action_buttons = ft.Row(
@@ -140,7 +138,8 @@ bottom_sheet = ft.Row(
     [
         ft.TextButton("Show modal bottom sheet", on_click=lambda e: bs_func(e, modal=True)),
         ft.TextButton("Show bottom sheet", on_click=lambda e: bs_func(e, modal=False))
-    ]
+    ],
+    alignment=ft.MainAxisAlignment.CENTER
 )
 
 _card_width = 115
@@ -204,7 +203,58 @@ dialogs = ft.Row(
 dividers = ft.Divider(height=5, thickness=1)
 
 # Navigation Components
-tabs_section = ft.Tabs(
+navrail = ft.NavigationRail(
+    selected_index=0,
+    label_type=ft.NavigationRailLabelType.SELECTED,
+    group_alignment=0.0,
+    expand=1,
+    height=350,
+    leading=ft.FloatingActionButton(icon=ft.icons.CREATE),
+    destinations=[
+        ft.NavigationRailDestination(
+            icon=ft.icons.INBOX_OUTLINED,
+            selected_icon=ft.icons.INBOX,
+            label="Inbox"
+        ),
+        ft.NavigationRailDestination(
+            icon=ft.icons.SEND_OUTLINED,
+            selected_icon=ft.icons.SEND,
+            label="Outbox"
+        ),
+        ft.NavigationRailDestination(
+            icon=ft.icons.FAVORITE_BORDER,
+            selected_icon=ft.icons.FAVORITE,
+            label="Favorites"
+        ),
+        ft.NavigationRailDestination(
+            icon=ft.icons.DELETE_OUTLINED,
+            selected_icon=ft.icons.DELETE,
+            label="Trash"
+        )
+    ],
+)
+
+navbar = ft.NavigationBar(
+    destinations=[
+        ft.NavigationDestination(
+            icon=ft.icons.EXPLORE_OUTLINED,
+            selected_icon=ft.icons.EXPLORE,
+            label="Explore"
+        ),
+        ft.NavigationDestination(
+            icon=ft.icons.PETS_OUTLINED,
+            selected_icon=ft.icons.PETS,
+            label="Pets"
+        ),
+        ft.NavigationDestination(
+            icon=ft.icons.ACCOUNT_BOX_OUTLINED,
+            selected_icon=ft.icons.ACCOUNT_BOX,
+            label="Account"
+        )
+    ],
+)
+
+tabs = ft.Tabs(
     tabs=[
         ft.Tab(
             "Video",
@@ -256,7 +306,7 @@ menus = ft.Column(
                     ]
                 ),
                 ft.PopupMenuButton(
-                    ft.Icon(ft.icons.MORE_VERT),
+                    icon=ft.icons.MORE_VERT,
                     items=[
                         ft.PopupMenuItem(content=ft.Text("Menu 1")),
                         ft.PopupMenuItem(content=ft.Text("Menu 2")),
@@ -299,9 +349,11 @@ menus = ft.Column(
                 ),
                 ft.Icon(ft.icons.CLOUD)
             ],
-            height=50
+            height=50,
+            alignment=ft.MainAxisAlignment.CENTER
         )
-    ]
+    ],
+    horizontal_alignment=ft.CrossAxisAlignment.CENTER
 )
 
 radio_buttons = ft.RadioGroup(
@@ -418,6 +470,16 @@ containment_section = ComponentSection(
 navigation_section = ComponentSection(
     "Navigation",
     [
+        ComponentSubSection(
+            "Navigation Bar",
+            "Use NavigationBar and NavigationDestination",
+            navrail
+        ),
+        ComponentSubSection(
+            "Navigation Bar",
+            "Use NavigationBar and NavigationDestination",
+            navbar
+        ),
         ComponentSubSection(
             "Tabs",
             "Use Tabs and Tab",
