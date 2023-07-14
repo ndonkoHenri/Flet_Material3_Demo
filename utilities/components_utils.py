@@ -130,7 +130,7 @@ class InputFields(ft.Column):
                     disabled=True if i == 3 else None,
 
                     hint_text="hint text",
-                    prefix_icon=ft.icons.LOOP,
+                    prefix_icon=ft.icons.SEARCH,
                     suffix=ft.IconButton(ft.icons.CANCEL, on_click=self.clear),
                     on_change=self.on_change,
                     height=80,
