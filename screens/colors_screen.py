@@ -1,5 +1,5 @@
 import flet as ft
-from Flet_Material3_Demo.utilities import ColorContainer
+from Flet_Material3_Demo.utilities.color_utils import ColorContainer
 
 containers_spacing = 18
 d = [
@@ -31,20 +31,21 @@ d = [
     ]
 ]
 
-colors = ft.Row(
-    controls=[
-        ft.Column(
-            controls=[
-                ft.Text(f"{theme_mode.value.title()} ColorScheme", weight=ft.FontWeight.BOLD, size=20),
-                ft.Column(
-                    controls=[ColorContainer(color_list, theme_mode) for color_list in d],
-                    spacing=containers_spacing,
-                )
-            ],
-            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-            spacing=15,
-            expand=1
-        ) for theme_mode in [ft.ThemeMode.LIGHT, ft.ThemeMode.DARK]
-],
-    spacing=35
-)
+
+class ColorScreen(ft.Row):
+    def __init__(self):
+        super().__init__(spacing=35, expand=19)
+        self.controls = [
+            ft.Column(
+                controls=[
+                    ft.Text(f"{theme_mode.value.title()} ColorScheme", weight=ft.FontWeight.BOLD, size=20),
+                    ft.Column(
+                        controls=[ColorContainer(color_list, theme_mode) for color_list in d],
+                        spacing=containers_spacing,
+                    )
+                ],
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                spacing=15,
+                expand=1,
+            ) for theme_mode in [ft.ThemeMode.LIGHT, ft.ThemeMode.DARK]
+        ]
