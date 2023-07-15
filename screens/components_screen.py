@@ -1,43 +1,43 @@
 import flet as ft
-
-from Flet_Material3_Demo.utilities import SubSection, Section, BottomSheetButton
+from Flet_Material3_Demo.utilities import ComponentSubSection, ComponentSection, BottomSheetButton, CardContainer, InputFields
 
 # Actions Components
 
-cb_width = 127
-cb_width_icon = cb_width - 20
-cb_height = 35
+_cb_width = 125
+_cb_width_icon = _cb_width - 25
+_cb_height = 35
 common_buttons = ft.Row(
     [
         ft.Column(
             [
-                ft.ElevatedButton("Elevated", width=cb_width, height=cb_height),
-                ft.FilledButton("Filled", width=cb_width, height=cb_height),
-                ft.FilledTonalButton("Filled tonal", width=cb_width, height=cb_height),
-                ft.OutlinedButton("Outlined", width=cb_width, height=cb_height),
-                ft.TextButton("Text", width=cb_width, height=cb_height)
-            ]
-        ),
-        ft.Column(
-            [
-                ft.ElevatedButton("Icon", icon=ft.icons.ADD, width=cb_width_icon, height=cb_height),
-                ft.FilledButton("Icon", icon=ft.icons.ADD, width=cb_width_icon, height=cb_height),
-                ft.FilledTonalButton("Icon", icon=ft.icons.ADD, width=cb_width_icon, height=cb_height),
-                ft.OutlinedButton("Icon", icon=ft.icons.ADD, width=cb_width_icon, height=cb_height),
-                ft.TextButton("Icon", icon=ft.icons.ADD, width=cb_width_icon, height=cb_height)
-            ]
-        ),
-        ft.Column(
-            [
-                ft.ElevatedButton("Elevated", width=cb_width, height=cb_height),
-                ft.FilledButton("Filled", width=cb_width, height=cb_height, disabled=True),
-                ft.FilledTonalButton("Filled tonal", width=cb_width, height=cb_height, disabled=True),
-                ft.OutlinedButton("Outlined", width=cb_width, height=cb_height),
-                ft.TextButton("Text", width=cb_width, height=cb_height)
+                ft.ElevatedButton("Elevated", width=_cb_width, height=_cb_height),
+                ft.FilledButton("Filled", width=_cb_width, height=_cb_height),
+                ft.FilledTonalButton("Filled tonal", width=_cb_width, height=_cb_height),
+                ft.OutlinedButton("Outlined", width=_cb_width, height=_cb_height),
+                ft.TextButton("Text", width=_cb_width, height=_cb_height)
             ],
-            disabled=True
+        ),
+        ft.Column(
+            [
+                ft.ElevatedButton("Icon", icon=ft.icons.ADD, width=_cb_width_icon, height=_cb_height),
+                ft.FilledButton("Icon", icon=ft.icons.ADD, width=_cb_width_icon, height=_cb_height),
+                ft.FilledTonalButton("Icon", icon=ft.icons.ADD, width=_cb_width_icon, height=_cb_height),
+                ft.OutlinedButton("Icon", icon=ft.icons.ADD, width=_cb_width_icon, height=_cb_height),
+                ft.TextButton("Icon", icon=ft.icons.ADD, width=_cb_width_icon, height=_cb_height)
+            ],
+        ),
+        ft.Column(
+            [
+                ft.ElevatedButton("Elevated", width=_cb_width, height=_cb_height),
+                ft.FilledButton("Filled", width=_cb_width, height=_cb_height, disabled=True),
+                ft.FilledTonalButton("Filled tonal", width=_cb_width, height=_cb_height, disabled=True),
+                ft.OutlinedButton("Outlined", width=_cb_width, height=_cb_height),
+                ft.TextButton("Text", width=_cb_width, height=_cb_height)
+            ],
+            disabled=True,
         )
-    ]
+    ],
+    alignment=ft.MainAxisAlignment.CENTER
 )
 
 floating_action_buttons = ft.Row(
@@ -76,6 +76,31 @@ icon_buttons = ft.Column(
 
 
 # Communication Components
+badges = ft.NavigationBar(
+    destinations=[
+        ft.NavigationDestination(
+            icon=ft.icons.EMAIL_OUTLINED,
+            selected_icon=ft.icons.EMAIL,
+            label="Mail"
+        ),
+        ft.NavigationDestination(
+            icon=ft.icons.PEOPLE_OUTLINE_SHARP,
+            selected_icon=ft.icons.PEOPLE_SHARP,
+            label="Chat"
+        ),
+        ft.NavigationDestination(
+            icon=ft.icons.ACCOUNT_BOX_OUTLINED,
+            selected_icon=ft.icons.ACCOUNT_BOX,
+            label="Rooms"
+        ),
+        ft.NavigationDestination(
+            icon=ft.icons.VIDEOCAM_OUTLINED,
+            selected_icon=ft.icons.VIDEOCAM,
+            label="Meet"
+        )
+    ],
+)
+
 
 def play_progress_indicators(e):
     if not progress_indicators.controls[1].value:
@@ -88,20 +113,29 @@ def play_progress_indicators(e):
 
 progress_indicators = ft.Row(
     controls=[
-        ft.IconButton(ft.icons.PLAY_ARROW, on_click=play_progress_indicators),
-        ft.ProgressRing(value=0.7),
-        ft.ProgressBar(value=0.7, width=290)
+        ft.IconButton(ft.icons.PLAY_ARROW, on_click=play_progress_indicators, expand=1),
+        ft.ProgressRing(value=0.7, expand=1),
+        ft.ProgressBar(value=0.7, expand=8)
     ]
 )
 
 snackbar = ft.TextButton(
     "Show snackbar",
-    on_click=lambda e: e.page.show_snack_bar(ft.SnackBar(ft.Text("This is a snackbar."), action="Close"))
+    on_click=lambda e: e.page.show_snack_bar(
+        ft.SnackBar(
+            ft.Text("This is a snackbar.", color=ft.colors.SURFACE),
+            action="Close",
+            width=365,
+            behavior=ft.SnackBarBehavior.FLOATING,
+            duration=8000,
+            # dismiss_direction=ft.DismissDirection.HORIZONTAL
+        )
+    )
 )
 
 # Containment Components
 
-bs_func = lambda e: e.page.show_bottom_sheet(
+bs_func = lambda e, modal: e.page.show_bottom_sheet(
     ft.BottomSheet(
         ft.Container(
             ft.Row(
@@ -116,24 +150,43 @@ bs_func = lambda e: e.page.show_bottom_sheet(
                 alignment=ft.MainAxisAlignment.SPACE_AROUND
             ),
             padding=25,
+            height=125
         ),
-        # open=True,
-        # on_dismiss=bs_dismissed,
         dismissible=True,
-        show_drag_handle=True, # if ... modal or not,
+        show_drag_handle=modal,
         enable_drag=True,
-        use_safe_area=True
     )
 )
 
 bottom_sheet = ft.Row(
     [
-        ft.TextButton("Show modal bottom sheet", on_click=bs_func),
-        ft.TextButton("Show bottom sheet", on_click=bs_func)
-    ]
+        ft.TextButton("Show modal bottom sheet", on_click=lambda e: bs_func(e, modal=True)),
+        ft.TextButton("Show bottom sheet", on_click=lambda e: bs_func(e, modal=False))
+    ],
+    alignment=ft.MainAxisAlignment.CENTER
 )
 
-cards = ft.Text("To be Done")
+_card_width = 115
+
+cards = ft.Row(
+    controls=[
+        ft.Card(
+            width=_card_width,
+            content=CardContainer("Elevated")
+        ),
+        ft.Card(
+            color=ft.colors.SURFACE_VARIANT,
+            elevation=0,
+            width=_card_width,
+            content=CardContainer("Filled")
+        ),
+        ft.Card(
+            width=_card_width,
+            elevation=0,
+            content=CardContainer("Outlined")
+        )
+    ]
+)
 
 
 def close_dlg(e: ft.ControlEvent):
@@ -154,26 +207,94 @@ alert_dialog = ft.AlertDialog(
 
 
 def show_dlg(e: ft.ControlEvent):
-    if e.control.data == 1:
-        e.control.page.dialog = alert_dialog
-    else:
-        # e.control.page.dialog = full_screen_dialog
-        pass
-    e.control.page.dialog.open = True
+    match e.control.data:
+        case 1:
+            e.control.page.dialog = alert_dialog
+            e.control.page.dialog.open = True
+        case 2:
+            e.page.go("/a")
+
     e.control.page.update()
 
 
 dialogs = ft.Row(
     [
         ft.TextButton("Show dialog", on_click=show_dlg, data=1),
-        ft.TextButton("Show full-screen dialog", on_click=show_dlg)
-    ]
+        ft.TextButton("Show full-screen dialog", on_click=show_dlg, data=2)
+    ],
+    alignment=ft.MainAxisAlignment.CENTER
 )
 
 dividers = ft.Divider(height=5, thickness=1)
 
 # Navigation Components
-# TBD
+navrail = ft.NavigationRail(
+    selected_index=0,
+    label_type=ft.NavigationRailLabelType.SELECTED,
+    group_alignment=0.0,
+    expand=1,
+    height=350,
+    leading=ft.FloatingActionButton(icon=ft.icons.CREATE),
+    destinations=[
+        ft.NavigationRailDestination(
+            icon=ft.icons.INBOX_OUTLINED,
+            selected_icon=ft.icons.INBOX,
+            label="Inbox"
+        ),
+        ft.NavigationRailDestination(
+            icon=ft.icons.SEND_OUTLINED,
+            selected_icon=ft.icons.SEND,
+            label="Outbox"
+        ),
+        ft.NavigationRailDestination(
+            icon=ft.icons.FAVORITE_BORDER,
+            selected_icon=ft.icons.FAVORITE,
+            label="Favorites"
+        ),
+        ft.NavigationRailDestination(
+            icon=ft.icons.DELETE_OUTLINED,
+            selected_icon=ft.icons.DELETE,
+            label="Trash"
+        )
+    ],
+)
+
+navbar = ft.NavigationBar(
+    destinations=[
+        ft.NavigationDestination(
+            icon=ft.icons.EXPLORE_OUTLINED,
+            selected_icon=ft.icons.EXPLORE,
+            label="Explore"
+        ),
+        ft.NavigationDestination(
+            icon=ft.icons.PETS_OUTLINED,
+            selected_icon=ft.icons.PETS,
+            label="Pets"
+        ),
+        ft.NavigationDestination(
+            icon=ft.icons.ACCOUNT_BOX_OUTLINED,
+            selected_icon=ft.icons.ACCOUNT_BOX,
+            label="Account"
+        )
+    ],
+)
+
+tabs = ft.Tabs(
+    tabs=[
+        ft.Tab(
+            "Video",
+            icon=ft.icons.VIDEO_CALL
+        ),
+        ft.Tab(
+            "Photo",
+            icon=ft.icons.PHOTO
+        ),
+        ft.Tab(
+            "Audio",
+            icon=ft.icons.AUDIOTRACK
+        )
+    ],
+)
 
 # Selection Components
 checkboxes = ft.ListView(
@@ -191,10 +312,10 @@ date_picker = ft.TextButton("Show date picker")
 def dropdown_change(e):
     i = menus.controls[1].controls[2]
     if e.control.data == "icon":
-        i.icon = e.control.value.lower()
+        i.name = e.control.value.lower()
     elif e.control.data == "color":
         i.color = e.control.value.lower()
-    menus.update()
+    i.update()
 
 
 menus = ft.Column(
@@ -210,14 +331,15 @@ menus = ft.Column(
                     ]
                 ),
                 ft.PopupMenuButton(
-                    ft.Icon(ft.icons.MENU),
+                    icon=ft.icons.MORE_VERT,
                     items=[
                         ft.PopupMenuItem(content=ft.Text("Menu 1")),
                         ft.PopupMenuItem(content=ft.Text("Menu 2")),
                         ft.PopupMenuItem(content=ft.Text("Menu 3"), )
                     ]
                 )
-            ]
+            ],
+            alignment=ft.MainAxisAlignment.CENTER
         ),
         ft.Row(
             controls=[
@@ -232,7 +354,8 @@ menus = ft.Column(
                     ],
                     on_change=dropdown_change,
                     data="color",
-                    width=100
+                    width=130,
+                    content_padding=ft.Padding(10, 2, 1, 2)
                 ),
                 ft.Dropdown(
                     label="Icon",
@@ -241,16 +364,21 @@ menus = ft.Column(
                         # ft.dropdown.Option("Smile"),
                         ft.dropdown.Option("Cloud"),
                         ft.dropdown.Option("Brush"),
-                        ft.dropdown.Option("Heart"),
+                        ft.dropdown.Option("Favorite"),
                     ],
                     value="Cloud",
                     on_change=dropdown_change,
-                    data="icon"
+                    data="icon",
+                    width=165,
+                    content_padding=2
                 ),
                 ft.Icon(ft.icons.CLOUD)
-            ]
+            ],
+            height=50,
+            alignment=ft.MainAxisAlignment.CENTER
         )
-    ]
+    ],
+    horizontal_alignment=ft.CrossAxisAlignment.CENTER
 )
 
 radio_buttons = ft.RadioGroup(
@@ -267,7 +395,7 @@ radio_buttons = ft.RadioGroup(
 sliders = ft.Column(
     controls=[
         ft.Slider(min=0, max=100),
-        ft.Slider(min=0, max=100, divisions=5)
+        ft.Slider(min=0, max=100, divisions=5, label="{value}")
     ]
 )
 
@@ -286,7 +414,7 @@ switches = ft.Row(
             ]
         ),
     ],
-    alignment=ft.MainAxisAlignment.SPACE_BETWEEN
+    alignment=ft.MainAxisAlignment.SPACE_AROUND
 )
 
 time_picker = ft.TextButton("Show time picker")
@@ -294,28 +422,27 @@ time_picker = ft.TextButton("Show time picker")
 # Text Input Components
 text_inputs = ft.Column(
     controls=[
-        ft.TextField(
-            helper_text="supporting text"
-        )
+        InputFields("filled"),
+        InputFields("outlined")
     ]
 )
 
 # Classifying Sections and SubSections
 
-actions_section = Section(
+actions_section = ComponentSection(
     "Actions",
     [
-        SubSection(
+        ComponentSubSection(
             "Common buttons",
             "Use ElevatedButton, FilledButton, FilledTonalButton, OutlinedButton or TextButton",
             common_buttons
         ),
-        SubSection(
+        ComponentSubSection(
             "Floating buttons",
             "Use FloatingActionButton",
             floating_action_buttons
         ),
-        SubSection(
+        ComponentSubSection(
             "Icon buttons",
             "Use ElevatedButton, FilledButton, FilledTonalButton, OutlinedButton or TextButton and set icon property",
             icon_buttons
@@ -323,15 +450,20 @@ actions_section = Section(
     ]
 )
 
-communication_section = Section(
+communication_section = ComponentSection(
     "Communication",
     [
-        SubSection(
+        ComponentSubSection(
+            "Badges",
+            "Use ..",
+            badges
+        ),
+        ComponentSubSection(
             "Progress Indicators",
             "Use ProgressBar or ProgressRing",
             progress_indicators
         ),
-        SubSection(
+        ComponentSubSection(
             "Snackbar",
             "Use page.show_snackbar with Snackbar",
             snackbar
@@ -339,20 +471,25 @@ communication_section = Section(
     ]
 )
 
-containment_section = Section(
+containment_section = ComponentSection(
     "Containment",
     [
-        SubSection(
+        ComponentSubSection(
             "Bottom sheet",
             "Use page.show_bottom_sheet with BottomSheet",
             bottom_sheet
         ),
-        SubSection(
+        ComponentSubSection(
+            "Cards",
+            "Use Card",
+            cards
+        ),
+        ComponentSubSection(
             "Dialog",
             "Use page.show_dialog with AlertDialog",
             dialogs
         ),
-        SubSection(
+        ComponentSubSection(
             "Divider",
             "Use Divider or VerticalDivider",
             dividers
@@ -360,47 +497,61 @@ containment_section = Section(
     ]
 )
 
-navigation_section = Section(
+navigation_section = ComponentSection(
     "Navigation",
     [
-
+        ComponentSubSection(
+            "Navigation Rail",
+            "Use NavigationRail and NavigationRailDestination",
+            navrail
+        ),
+        ComponentSubSection(
+            "Navigation Bar",
+            "Use NavigationBar and NavigationDestination",
+            navbar
+        ),
+        ComponentSubSection(
+            "Tabs",
+            "Use Tabs and Tab",
+            tabs
+        ),
     ]
 )
 
-selection_section = Section(
+selection_section = ComponentSection(
     "Selection",
     [
-        SubSection(
+        ComponentSubSection(
             "Checkboxes",
             "Use Checkbox",
             checkboxes
         ),
-        SubSection(
+        ComponentSubSection(
             "Date picker",
             "Use ...",
             date_picker
         ),
-        SubSection(
+        ComponentSubSection(
             "Menus",
             "Use PopupMenuButton, PopupMenuItem, and Dropdown",
             menus
         ),
-        SubSection(
+        ComponentSubSection(
             "Radio buttons",
             "Use Radio and RadioGroup",
             radio_buttons
         ),
-        SubSection(
+        ComponentSubSection(
             "Sliders",
             "Use Slider",
             sliders
         ),
-        SubSection(
+        ComponentSubSection(
             "Switches",
             "Use Switch",
             switches
         ),
-        SubSection(
+        ComponentSubSection(
             "Time picker",
             "Use ...",
             time_picker
@@ -409,18 +560,38 @@ selection_section = Section(
     ]
 )
 
-text_inputs_section = Section(
+text_inputs_section = ComponentSection(
     "Text Inputs",
     [
-
+        ComponentSubSection(
+            "Text fields",
+            "Use TextField",
+            text_inputs
+        )
     ]
 )
 
-components = (
-    actions_section,
-    communication_section,
-    containment_section,
-    navigation_section,
-    selection_section,
-    text_inputs_section
-)
+
+class ComponentScreen(ft.ResponsiveRow):
+    def __init__(self):
+        super().__init__(expand=19)
+        self.controls = [
+            ft.Column(
+                controls=[
+                    actions_section,
+                    communication_section,
+                    containment_section
+                ],
+                col={"lg": 6, "sm": 12},
+                scroll=ft.ScrollMode.HIDDEN
+            ),
+            ft.Column(
+                controls=[
+                    navigation_section,
+                    selection_section,
+                    text_inputs_section
+                ],
+                col={"lg": 6, "sm": 12},
+                scroll=ft.ScrollMode.AUTO
+            )
+        ]
