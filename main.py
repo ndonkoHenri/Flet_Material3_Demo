@@ -214,8 +214,7 @@ class Main:
         self.page.go(top_view.route)
 
 
-if __name__ == '__main__':
-    ft.app(
-        target=Main().run,
-        view=ft.WEB_BROWSER
-    )
+ft.app(
+    target=Main().run,
+    view=ft.WEB_BROWSER
+)
