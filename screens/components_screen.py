@@ -1,5 +1,5 @@
 import flet as ft
-from Flet_Material3_Demo.utilities import ComponentSubSection, ComponentSection, BottomSheetButton, CardContainer, InputFields
+from utilities import ComponentSubSection, ComponentSection, BottomSheetButton, CardContainer, InputFields
 
 # Actions Components
 
