@@ -51,29 +51,73 @@ floating_action_buttons = ft.Row(
     alignment=ft.MainAxisAlignment.CENTER
 )
 
+
+def _icon_clicked(e):
+    if isinstance(e.control, ft.IconButton):
+        e.control.selected = not e.control.selected
+
+    else:
+        e.control.content.name = "settings_outlined" if e.control.content.name == "settings" else "settings"
+
+        if isinstance(e.control, ft.OutlinedButton):
+            e.control.style.bgcolor = ft.colors.INVERSE_SURFACE if e.control.content.name == "settings" else None
+
+    icon_buttons.update()
+
+
 icon_buttons = ft.Column(
     controls=[
         ft.Row(
             controls=[
-                ft.IconButton(icon=ft.icons.SETTINGS_OUTLINED),
-                ft.IconButton(icon=ft.icons.SETTINGS_OUTLINED),
-                ft.IconButton(icon=ft.icons.SETTINGS_OUTLINED),
-                ft.IconButton(icon=ft.icons.SETTINGS_OUTLINED),
+                ft.IconButton(
+                    icon=ft.icons.SETTINGS_OUTLINED,
+                    selected=False,
+                    selected_icon=ft.icons.SETTINGS,
+                    on_click=_icon_clicked
+                ),
+                ft.FilledButton(
+                    content=ft.Icon(ft.icons.SETTINGS_OUTLINED),
+                    style=ft.ButtonStyle(shape=ft.CircleBorder(), padding=6),
+                    # bgcolor=ft.colors.TRANSPARENT,
+                    on_click=_icon_clicked,
+
+                ),
+                ft.FilledTonalButton(
+                    content=ft.Icon(ft.icons.SETTINGS_OUTLINED),
+                    style=ft.ButtonStyle(shape=ft.CircleBorder(), padding=6),
+                    on_click=_icon_clicked
+                ),
+                ft.OutlinedButton(
+                    content=ft.Icon(ft.icons.SETTINGS_OUTLINED),
+                    style=ft.ButtonStyle(shape=ft.CircleBorder(), padding=6, bgcolor=None),
+                    on_click=_icon_clicked,
+                )
             ],
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN
         ),
         ft.Row(
             controls=[
-                ft.IconButton(icon=ft.icons.SETTINGS_OUTLINED, disabled=True),
-                ft.IconButton(icon=ft.icons.SETTINGS_OUTLINED, disabled=True),
-                ft.IconButton(icon=ft.icons.SETTINGS_OUTLINED, disabled=True),
-                ft.IconButton(icon=ft.icons.SETTINGS_OUTLINED, disabled=True),
+                ft.IconButton(icon=ft.icons.SETTINGS_OUTLINED),
+                ft.FilledButton(
+                    content=ft.Icon(ft.icons.SETTINGS_OUTLINED),
+                    style=ft.ButtonStyle(shape=ft.CircleBorder(), padding=6),
+                    disabled=True
+                ),
+                ft.FilledTonalButton(
+                    content=ft.Icon(ft.icons.SETTINGS_OUTLINED),
+                    style=ft.ButtonStyle(shape=ft.CircleBorder(), padding=6),
+                    disabled=True
+                ),
+                ft.OutlinedButton(
+                    content=ft.Icon(ft.icons.SETTINGS_OUTLINED),
+                    style=ft.ButtonStyle(shape=ft.CircleBorder(), padding=6),
+                )
             ],
-            alignment=ft.MainAxisAlignment.SPACE_BETWEEN
+            alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+            disabled=True
         )
     ]
 )
-
 
 # Communication Components
 badges = ft.NavigationBar(
@@ -102,7 +146,7 @@ badges = ft.NavigationBar(
 )
 
 
-def play_progress_indicators(e):
+def _play_progress_indicators(e):
     if not progress_indicators.controls[1].value:
         progress_indicators.controls[1].value = progress_indicators.controls[2].value = 0.7
     else:
@@ -113,7 +157,7 @@ def play_progress_indicators(e):
 
 progress_indicators = ft.Row(
     controls=[
-        ft.IconButton(ft.icons.PLAY_ARROW, on_click=play_progress_indicators, expand=1),
+        ft.IconButton(ft.icons.PLAY_ARROW, on_click=_play_progress_indicators, expand=1),
         ft.ProgressRing(value=0.7, expand=1),
         ft.ProgressBar(value=0.7, expand=8)
     ]
@@ -189,7 +233,7 @@ cards = ft.Row(
 )
 
 
-def close_dlg(e: ft.ControlEvent):
+def _close_dlg(e: ft.ControlEvent):
     e.control.page.dialog.open = False
     e.control.page.update()
 
@@ -199,14 +243,14 @@ alert_dialog = ft.AlertDialog(
     content=ft.Text(
         "A dialog is a type of modal window that appears in front of app content to provide critical information, or prompt for a decision to be made."),
     actions=[
-        ft.TextButton("Okay", on_click=close_dlg),
-        ft.ElevatedButton("Dismiss", on_click=close_dlg)
+        ft.TextButton("Okay", on_click=_close_dlg),
+        ft.ElevatedButton("Dismiss", on_click=_close_dlg)
     ],
     actions_alignment=ft.MainAxisAlignment.END
 )
 
 
-def show_dlg(e: ft.ControlEvent):
+def _show_dlg(e: ft.ControlEvent):
     match e.control.data:
         case 1:
             e.control.page.dialog = alert_dialog
@@ -219,8 +263,8 @@ def show_dlg(e: ft.ControlEvent):
 
 dialogs = ft.Row(
     [
-        ft.TextButton("Show dialog", on_click=show_dlg, data=1),
-        ft.TextButton("Show full-screen dialog", on_click=show_dlg, data=2)
+        ft.TextButton("Show dialog", on_click=_show_dlg, data=1),
+        ft.TextButton("Show full-screen dialog", on_click=_show_dlg, data=2)
     ],
     alignment=ft.MainAxisAlignment.CENTER
 )
@@ -309,7 +353,7 @@ checkboxes = ft.ListView(
 date_picker = ft.TextButton("Show date picker")
 
 
-def dropdown_change(e):
+def _dropdown_change(e):
     i = menus.controls[1].controls[2]
     if e.control.data == "icon":
         i.name = e.control.value.lower()
@@ -352,7 +396,7 @@ menus = ft.Column(
                         ft.dropdown.Option("Yellow"),
                         ft.dropdown.Option("Grey", disabled=True),
                     ],
-                    on_change=dropdown_change,
+                    on_change=_dropdown_change,
                     data="color",
                     width=130,
                     content_padding=ft.Padding(10, 2, 1, 2)
@@ -367,7 +411,7 @@ menus = ft.Column(
                         ft.dropdown.Option("Favorite"),
                     ],
                     value="Cloud",
-                    on_change=dropdown_change,
+                    on_change=_dropdown_change,
                     data="icon",
                     width=165,
                     content_padding=2
