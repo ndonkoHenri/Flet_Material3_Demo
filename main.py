@@ -100,6 +100,17 @@ class Main:
         self.page.theme_mode = "light"
         self.page.theme = self.page.dark_theme = ft.Theme(use_material3=True)
         self.nav_rail.visible = True if self.page.width >= self.width_breakpoint else False
+        self.page.floating_action_button_location = ft.FloatingActionButtonLocation.END_CONTAINED
+
+        self.page.time_picker = ft.TimePicker(
+            confirm_text="OK",
+            error_invalid_text="Time out of range",
+            help_text="Select time",
+            on_change=lambda e: e.page.show_snack_bar(ft.SnackBar(ft.Text(f"Selected time: {e.control.value.strftime('%H:%M %p')}"))),
+            #on_dismiss=dismissed,
+        )
+
+        self.page.overlay.append(self.page.time_picker)
 
         self.page.appbar = ft.AppBar(
             title=ft.Text("Material 3"),

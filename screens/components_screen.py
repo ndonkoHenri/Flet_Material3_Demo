@@ -119,27 +119,52 @@ icon_buttons = ft.Column(
     ]
 )
 
+segmented_buttons = ft.Column(
+    controls=[
+        ft.SegmentedButton(
+            selected={"Day"},
+            segments=[
+                ft.Segment("Day", label=ft.Text("Day"), icon=ft.icons.CALENDAR_VIEW_DAY),
+                ft.Segment("Week", label=ft.Text("Week"), icon=ft.icons.CALENDAR_VIEW_WEEK),
+                ft.Segment("Month", label=ft.Text("Month"), icon=ft.icons.CALENDAR_VIEW_MONTH),
+                ft.Segment("Year", label=ft.Text("Year"), icon=ft.icons.CALENDAR_TODAY),
+            ]
+        ),
+        ft.SegmentedButton(
+            selected={"L", "XL"},
+            allow_multiple_selection=True,
+            segments=[
+                ft.Segment("XS", label=ft.Text("XS")),
+                ft.Segment("S", label=ft.Text("S")),
+                ft.Segment("M", label=ft.Text("M")),
+                ft.Segment("L", label=ft.Text("L")),
+                ft.Segment("XL", label=ft.Text("XL")),
+            ]
+        )
+    ]
+)
+
 # Communication Components
 badges = ft.NavigationBar(
     destinations=[
         ft.NavigationDestination(
-            icon=ft.icons.EMAIL_OUTLINED,
-            selected_icon=ft.icons.EMAIL,
+            icon_content=ft.Badge(ft.Icon(ft.icons.EMAIL_OUTLINED), text="999+"),
+            selected_icon_content=ft.Badge(ft.Icon(ft.icons.EMAIL), text="999+"),
             label="Mail"
         ),
         ft.NavigationDestination(
-            icon=ft.icons.PEOPLE_OUTLINE_SHARP,
-            selected_icon=ft.icons.PEOPLE_SHARP,
+            icon_content=ft.Badge(ft.Icon(ft.icons.PEOPLE_OUTLINE_SHARP), text="10"),
+            selected_icon_content=ft.Badge(ft.Icon(ft.icons.PEOPLE_SHARP), text="10"),
             label="Chat"
         ),
         ft.NavigationDestination(
-            icon=ft.icons.ACCOUNT_BOX_OUTLINED,
-            selected_icon=ft.icons.ACCOUNT_BOX,
+            icon_content=ft.Badge(ft.Icon(ft.icons.ACCOUNT_BOX_OUTLINED)),
+            selected_icon_content=ft.Badge(ft.Icon(ft.icons.ACCOUNT_BOX)),
             label="Rooms"
         ),
         ft.NavigationDestination(
-            icon=ft.icons.VIDEOCAM_OUTLINED,
-            selected_icon=ft.icons.VIDEOCAM,
+            icon_content=ft.Badge(ft.Icon(ft.icons.VIDEOCAM_OUTLINED), text="3"),
+            selected_icon_content=ft.Badge(ft.Icon(ft.icons.VIDEOCAM), text="3"),
             label="Meet"
         )
     ],
@@ -271,7 +296,101 @@ dialogs = ft.Row(
 
 dividers = ft.Divider(height=5, thickness=1)
 
+
 # Navigation Components
+def _fab_hover(e):
+    e.control.content.elevation = 5 if e.control.content.elevation == 0 else 0
+    e.page.update()
+
+
+bottom_appbar = ft.BottomAppBar(
+    bgcolor=ft.colors.SURFACE_VARIANT,
+    content=ft.Row(
+        [
+            ft.IconButton(ft.icons.MENU, tooltip="Menu"),
+            ft.IconButton(ft.icons.SEARCH, tooltip="Search"),
+            ft.IconButton(ft.icons.FAVORITE, tooltip="Favorite"),
+            ft.Container(expand=True),
+            ft.FloatingActionButton(icon=ft.icons.ADD)
+        ]
+    )
+)
+
+navbar = ft.NavigationBar(
+    destinations=[
+        ft.NavigationDestination(
+            icon=ft.icons.EXPLORE_OUTLINED,
+            selected_icon=ft.icons.EXPLORE,
+            label="Explore"
+        ),
+        ft.NavigationDestination(
+            icon=ft.icons.PETS_OUTLINED,
+            selected_icon=ft.icons.PETS,
+            label="Pets"
+        ),
+        ft.NavigationDestination(
+            icon=ft.icons.ACCOUNT_BOX_OUTLINED,
+            selected_icon=ft.icons.ACCOUNT_BOX,
+            label="Account"
+        )
+    ],
+)
+
+nd = ft.NavigationDrawer(
+    controls=[
+        ft.Container(
+            ft.Text("Mail", style=ft.TextThemeStyle.TITLE_SMALL),
+            padding=ft.Padding(28, 16, 16, 10),
+        ),
+        ft.NavigationDrawerDestination(
+            icon=ft.icons.INBOX_OUTLINED,
+            selected_icon=ft.icons.INBOX,
+            label="Inbox"
+        ),
+        ft.NavigationDrawerDestination(
+            icon=ft.icons.SEND_OUTLINED,
+            selected_icon=ft.icons.SEND,
+            label="Outbox"
+        ),
+        ft.NavigationDrawerDestination(
+            icon=ft.icons.FAVORITE_BORDER,
+            selected_icon=ft.icons.FAVORITE,
+            label="Favorites"
+        ),
+        ft.NavigationDrawerDestination(
+            icon=ft.icons.DELETE_OUTLINED,
+            selected_icon=ft.icons.DELETE,
+            label="Trash"
+        ),
+        ft.Divider(height=5, thickness=1),
+        ft.Container(
+            ft.Text("Labels", style=ft.TextThemeStyle.TITLE_SMALL),
+            padding=ft.Padding(28, 16, 16, 10),
+        ),
+        ft.NavigationDrawerDestination(
+            icon=ft.icons.BOOKMARK_BORDER,
+            selected_icon=ft.icons.BOOKMARK,
+            label="Family"
+        ),
+        ft.NavigationDrawerDestination(
+            icon=ft.icons.BOOKMARK_BORDER,
+            selected_icon=ft.icons.BOOKMARK,
+            label="School"
+        ),
+        ft.NavigationDrawerDestination(
+            icon=ft.icons.BOOKMARK_BORDER,
+            selected_icon=ft.icons.BOOKMARK,
+            label="Work"
+        )
+    ]
+)
+
+navdrawer = ft.Column(
+    [
+        ft.TextButton("Show Navigation Drawer", on_click=lambda e: e.page.show_end_drawer(nd)),
+    ]
+)
+
 navrail = ft.NavigationRail(
     selected_index=0,
     label_type=ft.NavigationRailLabelType.SELECTED,
@@ -303,26 +422,6 @@ navrail = ft.NavigationRail(
     ],
 )
 
-navbar = ft.NavigationBar(
-    destinations=[
-        ft.NavigationDestination(
-            icon=ft.icons.EXPLORE_OUTLINED,
-            selected_icon=ft.icons.EXPLORE,
-            label="Explore"
-        ),
-        ft.NavigationDestination(
-            icon=ft.icons.PETS_OUTLINED,
-            selected_icon=ft.icons.PETS,
-            label="Pets"
-        ),
-        ft.NavigationDestination(
-            icon=ft.icons.ACCOUNT_BOX_OUTLINED,
-            selected_icon=ft.icons.ACCOUNT_BOX,
-            label="Account"
-        )
-    ],
-)
-
 tabs = ft.Tabs(
     tabs=[
         ft.Tab(
@@ -347,6 +446,23 @@ checkboxes = ft.ListView(
         ft.ListTile(title=ft.Text("Option 2"), trailing=ft.Checkbox(value=True, tristate=True), toggle_inputs=True),
         ft.ListTile(title=ft.Text("Option 3"), trailing=ft.Checkbox(tristate=True), toggle_inputs=True),
         ft.ListTile(title=ft.Text("Option 4"), trailing=ft.Checkbox(value=False), disabled=True)
+    ]
+)
+
+chips = ft.Column(
+    controls=[
+        ft.Row(
+            controls=[
+
+                ft.Chip(ft.Text("Assist"), leading=ft.Icon(ft.icons.EVENT, color="blue"),
+                        on_click=lambda e: e.page.update(), disabled=state),
+                ft.Chip(ft.Text("Filter"), show_checkmark=True, selected=True, on_select=lambda e: e.page.update(),
+                        disabled=state),
+                ft.Chip(ft.Text("Input"), on_delete=lambda e: e.page.update(), disabled=state),
+                ft.Chip(ft.Text("Suggestion"), on_click=lambda e: e.page.update(), disabled=state),
+            ]
+        )
+        for state in [False, True]
     ]
 )
 
@@ -453,15 +569,15 @@ switches = ft.Row(
         ),
         ft.Column(
             controls=[
-                ft.Switch(value=True),
-                ft.Switch(value=True, disabled=True)
+                ft.Switch(value=True, thumb_icon=ft.icons.CHECK),
+                ft.Switch(value=True, thumb_icon=ft.icons.CHECK, disabled=True)
             ]
         ),
     ],
     alignment=ft.MainAxisAlignment.SPACE_AROUND
 )
 
-time_picker = ft.TextButton("Show time picker")
+time_picker = ft.TextButton("Show time picker", on_click=lambda e: e.page.time_picker.pick_time())
 
 # Text Input Components
 text_inputs = ft.Column(
@@ -489,6 +605,11 @@ actions_section = ComponentSection(
         ComponentSubSection(
             "Icon buttons",
             "Use ElevatedButton, FilledButton, FilledTonalButton, OutlinedButton or TextButton and set icon property",
+            icon_buttons
+        ),
+        ComponentSubSection(
+            "Segmented buttons",
+            "Use SegmentedButton and Segment",
             icon_buttons
         ),
     ]
@@ -545,14 +666,24 @@ navigation_section = ComponentSection(
     "Navigation",
     [
         ComponentSubSection(
-            "Navigation Rail",
-            "Use NavigationRail and NavigationRailDestination",
-            navrail
+            "Bottom app bar",
+            "Use BottomAppBar",
+            bottom_appbar
         ),
         ComponentSubSection(
             "Navigation Bar",
             "Use NavigationBar and NavigationDestination",
             navbar
+        ),
+        ComponentSubSection(
+            "Navigation Drawer",
+            "Use NavigationDrawer and NavigationDrawerDestination",
+            navdrawer
+        ),
+        ComponentSubSection(
+            "Navigation Rail",
+            "Use NavigationRail and NavigationRailDestination",
+            navrail
         ),
         ComponentSubSection(
             "Tabs",
@@ -572,8 +703,13 @@ selection_section = ComponentSection(
         ),
         ComponentSubSection(
             "Date picker",
-            "Use ...",
+            "Use DatePicker",
             date_picker
+        ),
+        ComponentSubSection(
+            "Chips",
+            "Use Chip",
+            chips
         ),
         ComponentSubSection(
             "Menus",
@@ -597,7 +733,7 @@ selection_section = ComponentSection(
         ),
         ComponentSubSection(
             "Time picker",
-            "Use ...",
+            "Use TimePicker",
             time_picker
         )
 
